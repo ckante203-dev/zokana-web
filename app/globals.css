@@ -60,7 +60,7 @@ body {
 }
 
 .add-to-cart-btn {
-  background: #f68b1e;
+  background: red;
   color: white;
   border: none;
   border-radius: 4px;
@@ -71,3 +71,4 @@ body {
   margin-top: 10px;
   box-shadow: 0 4px 6px rgba(246, 139, 30, 0.2);
 }
+

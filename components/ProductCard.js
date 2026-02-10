@@ -29,10 +29,7 @@ export default function ProductCard({ produit }) {
           </div>
         </div>
 
-        {/* Étoiles Jumia */}
-        <div className="flex items-center mt-1 text-[10px] text-[#f6b01e]">
-          ★★★★★ <span className="text-gray-400 ml-1">(15)</span>
-        </div>
+        
 
         {/* Bouton Orange Jumia */}
         <button className="add-to-cart-btn w-full shadow-lg active:brightness-90 transition-all">
