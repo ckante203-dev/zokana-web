@@ -1,79 +1,63 @@
 'use client';
 import { useState } from 'react';
+import { useCart } from '../lib/CartContext';
+import Link from 'next/link';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const { cartCount } = useCart();
 
   return (
     <>
       <header className="bg-white sticky top-0 z-50 shadow-sm border-b border-gray-100 font-sans text-black">
+        {/* Ligne 1 : Logo et Icônes */}
         <div className="flex items-center justify-between px-4 py-3">
-          {/* Menu Burger & Logo */}
           <div className="flex items-center gap-4">
-            <button onClick={() => setIsOpen(true)} className="text-2xl hover:bg-gray-100 p-1 rounded-md transition">
-              ☰
-            </button>
-            <h1 className="text-xl font-black italic tracking-tighter">ZOKANA</h1>
+            <button onClick={() => setIsOpen(true)} className="text-2xl p-1">☰</button>
+            <Link href="/">
+              <h1 className="text-xl font-black italic tracking-tighter cursor-pointer">ZOKANA</h1>
+            </Link>
           </div>
 
-          {/* Profil & Panier */}
-          <div className="flex items-center gap-5 text-black">
+          <div className="flex items-center gap-5">
             <button className="text-xl">👤</button>
-            <div className="relative">
+            <Link href="/panier" className="relative cursor-pointer p-1">
               <span className="text-2xl">🛒</span>
-              <span className="absolute -top-1 -right-2 bg-[#ff0000] text-white text-[10px] font-bold h-4 w-4 flex items-center justify-center rounded-full border border-white">
-                0
-              </span>
-            </div>
+              {cartCount > 0 && (
+                <span className="absolute -top-1 -right-2 bg-[#E61E2A] text-white text-[10px] font-bold h-4 w-4 flex items-center justify-center rounded-full border border-white">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
           </div>
         </div>
 
-        {/* Barre de Recherche Grise */}
+        {/* Ligne 2 : Barre de recherche (RETOUR) */}
         <div className="px-4 pb-3">
-          <div className="flex items-center bg-[#f0f2f2] rounded-md px-3 py-2 border border-gray-200">
-            <span className="mr-2 text-gray-400">🔍</span>
+          <div className="relative flex items-center">
+            <span className="absolute left-3 text-gray-400">🔍</span>
             <input 
               type="text" 
-              placeholder="Rechercher sur Zokana" 
-              className="bg-transparent w-full outline-none text-sm"
+              placeholder="Chercher un jus, une saveur..." 
+              className="w-full bg-gray-100 py-2 pl-10 pr-4 rounded-full text-sm outline-none focus:ring-1 focus:ring-gray-200"
             />
           </div>
         </div>
       </header>
 
-      {/* --- MENU LATÉRAL (DRAWER) --- */}
-      {/* Overlay (le fond noir transparent) */}
-      <div 
-        className={`fixed inset-0 bg-black/50 z-[100] transition-opacity duration-300 ${isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
-        onClick={() => setIsOpen(false)}
-      />
-
-      {/* Menu lui-même */}
-      <div className={`fixed top-0 left-0 h-full w-[280px] bg-white z-[101] shadow-2xl transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-        <div className="bg-black text-white p-6 flex items-center justify-between">
-          <span className="font-bold italic">MENU ZOKANA</span>
-          <button onClick={() => setIsOpen(false)} className="text-xl text-gray-400">✕</button>
+      {/* Menu Drawer (Optionnel - à remplir si tu veux) */}
+      {isOpen && (
+        <div className="fixed inset-0 z-[60] flex">
+          <div className="fixed inset-0 bg-black/50" onClick={() => setIsOpen(false)} />
+          <div className="relative bg-white w-64 h-full p-5 shadow-xl">
+             <button onClick={() => setIsOpen(false)} className="mb-5 text-xl font-bold">✕ Fermer</button>
+             <nav className="flex flex-col gap-4 font-bold">
+               <Link href="/" onClick={() => setIsOpen(false)}>Accueil</Link>
+               <Link href="/panier" onClick={() => setIsOpen(false)}>Mon Panier ({cartCount})</Link>
+             </nav>
+          </div>
         </div>
-
-        <nav className="p-4 space-y-6">
-          <div className="space-y-4">
-            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Catégories</p>
-            <a href="#" className="flex items-center gap-3 text-sm font-medium hover:text-orange-500">🍹 Tous les jus</a>
-            <a href="#" className="flex items-center gap-3 text-sm font-medium hover:text-orange-500">🍋 Citron & Canne</a>
-            <a href="#" className="flex items-center gap-3 text-sm font-medium hover:text-orange-500">🔥 Gingembre Boost</a>
-            <a href="#" className="flex items-center gap-3 text-sm font-medium hover:text-orange-500">🍍 Ananas Frais</a>
-          </div>
-
-          <hr className="border-gray-100" />
-
-          <div className="space-y-4">
-            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Aide & Contact</p>
-            <a href="#" className="block text-sm">Mon compte</a>
-            <a href="#" className="block text-sm">Commander via WhatsApp</a>
-            <a href="#" className="block text-sm">À propos de nous</a>
-          </div>
-        </nav>
-      </div>
+      )}
     </>
   );
 }
