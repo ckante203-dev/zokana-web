@@ -23,20 +23,21 @@ export default function ProductCard({ produit }) {
         PROMO
       </div>
 
-      {/* ZONE IMAGE (60%) */}
-      <div className="h-60 w-full flex justify-center items-center relative bg-[#F4F4F4] rounded-xl overflow-hidden mb-3 p-4">
+      {/* ZONE IMAGE : Fond Blanc (bg-white) */}
+      <div className="h-64 w-full flex justify-center items-center relative bg-white rounded-xl overflow-hidden mb-3 p-0">
         <img 
           src={produit.image_url} 
           alt={produit.nom}
-          /* drop-shadow-2xl fait ressortir la bouteille PNG en 3D */
-          className="h-full w-auto object-contain drop-shadow-2xl transition-transform duration-500 hover:scale-110" 
+          /* On garde le zoom et l'ombre portée pour que la bouteille ressorte sur le blanc */
+          className="h-[125%] w-auto object-contain drop-shadow-2xl transition-transform duration-500 hover:scale-125 transform-gpu" 
         />
-        <button className="absolute top-2 right-2 text-gray-300 text-xl hover:text-red-500 transition-colors">
+        
+        <button className="absolute top-2 right-2 text-gray-300 text-xl hover:text-red-500 transition-colors z-20">
           ♡
         </button>
       </div>
 
-      {/* ZONE INFOS (40%) */}
+      {/* ZONE INFOS */}
       <div className="flex flex-col justify-between flex-grow px-1">
         <div>
           <h3 className="text-[14px] font-bold text-gray-800 leading-tight line-clamp-2 uppercase tracking-tight">
@@ -47,8 +48,9 @@ export default function ProductCard({ produit }) {
           </p>
         </div>
 
-        {/* Sélecteur et Bouton */}
+        {/* Sélecteur (Gris) et Bouton (Rouge) */}
         <div className="mt-auto space-y-2">
+          {/* On garde ce fond gris pour détacher le sélecteur du fond blanc de la carte */}
           <div className="flex items-center justify-between bg-gray-100 rounded-xl p-1">
             <button 
               onClick={() => setQuantity(Math.max(1, quantity - 1))}
@@ -64,6 +66,7 @@ export default function ProductCard({ produit }) {
           <button 
             onClick={handleAdd}
             disabled={isAdding}
+            /* Bouton Rouge Zokana constant */
             className={`w-full py-3.5 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all ${
               isAdding 
               ? 'bg-green-600 text-white' 
