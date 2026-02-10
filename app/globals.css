@@ -24,3 +24,50 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+
+/* Style de la grille Jumia */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px; /* Espace entre les cartes */
+  padding: 10px;
+  background-color: #f4f4f4; /* Fond gris clair pour faire ressortir le blanc des cartes */
+}
+
+.product-card {
+  background: white;
+  border-radius: 4px; /* Jumia utilise des bords très peu arrondis */
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  position: relative;
+}
+
+/* Badge Promo (Offre St Valentin Style) */
+.promo-badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #f63b4d;
+  color: white;
+  font-size: 10px;
+  font-weight: 900;
+  padding: 2px 8px;
+  text-transform: uppercase;
+}
+
+.add-to-cart-btn {
+  background: #f68b1e;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 12px;
+  margin-top: 10px;
+  box-shadow: 0 4px 6px rgba(246, 139, 30, 0.2);
+}
