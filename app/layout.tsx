@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "../lib/CartContext";
 import Header from "../components/Header";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,8 +27,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {/* On remet la protection du panier et l'entête ici */}
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased text-black`}>
+        {/* Chargement du SDK CinetPay avec la stratégie optimale */}
+        <Script 
+          src="https://checkout.cinetpay.com/sdk/v1/sdk.cinetpay.js" 
+          strategy="afterInteractive" 
+        />
+
         <CartProvider>
           <Header />
           <main>{children}</main>
